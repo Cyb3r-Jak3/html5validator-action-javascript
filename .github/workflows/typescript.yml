@@ -39,4 +39,4 @@ jobs:
       - name: Check Build
         run: |
           yarn run build-check
-          diff  --strip-trailing-cr dist/index.js check/index.js
+          diff  --strip-trailing-cr dist/index.js check/index.js | cat -t
