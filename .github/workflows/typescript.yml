@@ -38,5 +38,5 @@ jobs:
       - name: Check Build
         run: |
           mkdir check
-          yarn run tsc && yarn run ncc build --output check --minify
+          yarn run tsc && yarn run ncc build --out check --minify
           git diff dist/index.js check/index.js
