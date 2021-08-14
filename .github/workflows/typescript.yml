@@ -39,4 +39,4 @@ jobs:
       - name: Check Build
         run: |
           yarn run tsc && yarn run ncc build --out check --minify
-          cmp dist/index.js check/index.js
+          diff dist/index.js check/index.js
