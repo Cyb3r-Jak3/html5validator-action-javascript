@@ -6,7 +6,7 @@ export async function run(): Promise<void> {
   if (core.getInput('root') === '' && core.getInput('config') === '') {
     core.setFailed('Need either root or config set')
   }
-  var html5validator_version = core.getInput("validator_version")
+  let html5validator_version = core.getInput('validator_version')
   if (html5validator_version !== '') {
     html5validator_version = `==${html5validator_version}`
   }
