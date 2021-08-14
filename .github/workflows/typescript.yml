@@ -38,5 +38,5 @@ jobs:
       # If this fails then run `yarn build` and push new dist
       - name: Check Build
         run: |
-          yarn run tsc && yarn run ncc build --out check --minify
-          diff dist/index.js check/index.js
+          yarn run build-check
+          diff  --strip-trailing-cr dist/index.js check/index.js
