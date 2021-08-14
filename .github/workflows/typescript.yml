@@ -35,6 +35,7 @@ jobs:
       # - name: Run tests
       #   run: yarn run test
 
+      # If this fails then run `yarn build` and push new dist
       - name: Check Build
         run: |
           yarn run tsc && yarn run ncc build --out check --minify

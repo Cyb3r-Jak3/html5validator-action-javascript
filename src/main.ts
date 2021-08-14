@@ -16,7 +16,7 @@ export async function run(): Promise<void> {
     '-disable-pip-version-check',
     '--no-cache-dir ',
     '--upgrade',
-    'html5validator'
+    `html5validator${html5validator_version}`
   ])
   core.endGroup()
   const config: Config = await generateConfig()
