@@ -27,14 +27,23 @@ export async function run(): Promise<void> {
     runArgs.push(`--blacklisted ${config.blacklisted.join(' ')}`)
   }
   runArgs.concat(config.extra)
+  let results: exec.ExecOutput
   if (config.config !== '') {
-    await exec.getExecOutput('html5validator', [`--config ${config.config}`], {
-      ignoreReturnCode: true
-    })
+    results = await exec.getExecOutput(
+      'html5validator',
+      [`--config ${config.config}`],
+      {
+        ignoreReturnCode: true
+      }
+    )
   } else {
-    await exec.getExecOutput('html5validator', runArgs, {
+    results = await exec.getExecOutput('html5validator', runArgs, {
       ignoreReturnCode: true
     })
+  }
+  core.setOutput('results', results.exitCode)
+  if (results.exitCode !== 0) {
+    core.setFailed('html5validator returned non-zero exit code')
   }
 }
 
