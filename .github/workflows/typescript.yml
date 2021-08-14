@@ -39,4 +39,5 @@ jobs:
       - name: Check Build
         run: |
           yarn run build-check
-          diff --strip-trailing-cr dist/index.js check/index.js
+          dos2unix dist/index.js check/index.js
+          cmp dist/index.js check/index.js
