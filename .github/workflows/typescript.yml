@@ -34,11 +34,3 @@ jobs:
 
       # - name: Run tests
       #   run: yarn run test
-
-      # If this fails then run `yarn build` and push new dist
-      - name: Check Build
-        run: |
-          sudo apt-get install dos2unix
-          yarn run build-check
-          dos2unix -f dist/index.js check/index.js
-          cmp dist/index.js check/index.js

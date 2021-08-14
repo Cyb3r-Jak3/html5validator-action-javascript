@@ -6,7 +6,6 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc && ncc build --minify",
-    "build-check": "tsc && ncc build --out check --minify",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
     "lint": "eslint src/**/*.ts",
