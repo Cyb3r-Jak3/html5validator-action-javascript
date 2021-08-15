@@ -2,12 +2,13 @@ import * as os from 'os'
 import {run} from '../src/main'
 
 describe('Main', () => {
-  //   it('no root or config', async () => {
-  //     process.stdout.write = jest.fn()
-  //     await run()
-  //     assertWriteCalls([`::error::Need either root or config set${os.EOL}`])
-  //   });
+    it('no root or config', async () => {
+      process.stdout.write = jest.fn()
+      await run()
+      assertWriteCalls([`::error::Need either root or config set${os.EOL}`])
+    });
   it('custom validator version', async () => {
+    jest.setTimeout(10000000);
     generateNewConfig()
     setInput('validator_version', '0.4.0')
     await run()
