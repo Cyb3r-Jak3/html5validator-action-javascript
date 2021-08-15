@@ -5,19 +5,30 @@ import {Config, generateConfig} from './config'
 export async function run(): Promise<void> {
   if (core.getInput('root') === '' && core.getInput('config') === '') {
     core.setFailed('Need either root or config set')
+    return
   }
   let html5validator_version = core.getInput('validator_version')
   if (html5validator_version !== '') {
     html5validator_version = `==${html5validator_version}`
   }
   core.startGroup('Installing HTML5Validator')
-  await exec.exec('pip', [
-    'install',
-    '-disable-pip-version-check',
-    '--no-cache-dir ',
-    '--upgrade',
-    `html5validator${html5validator_version}`
-  ])
+  const install = await exec.getExecOutput(
+    'pip3',
+    [
+      'install',
+      '--disable-pip-version-check',
+      '--no-cache-dir',
+      '--upgrade',
+      `html5validator${html5validator_version}`
+    ],
+    {ignoreReturnCode: true}
+  )
+  if (install.exitCode !== 0) {
+    core.setFailed(
+      `Error installing html5validator: ${install.stdout}, ${install.stderr}`
+    )
+    return
+  }
   core.endGroup()
   const config: Config = await generateConfig()
   const runArgs: string[] = []
@@ -27,9 +38,10 @@ export async function run(): Promise<void> {
   if (config.format !== '') {
     runArgs.push(`--format ${config.format}`)
   }
-  if (config.blacklisted.length !== 0) {
-    runArgs.push(`--blacklisted ${config.blacklisted.join(' ')}`)
+  if (config.blacklist.length !== 0) {
+    runArgs.push(`--blacklist ${config.blacklist.join(' ')}`)
   }
+  runArgs.push(`--log ${config.log_level}`)
   runArgs.concat(config.extra)
   let results: exec.ExecOutput
   if (config.config !== '') {
@@ -41,9 +53,13 @@ export async function run(): Promise<void> {
       }
     )
   } else {
-    results = await exec.getExecOutput('html5validator', runArgs, {
-      ignoreReturnCode: true
-    })
+    results = await exec.getExecOutput(
+      'html5validator',
+      [...runArgs, `--root ${config.root}`],
+      {
+        ignoreReturnCode: true
+      }
+    )
   }
   core.setOutput('results', results.exitCode)
   if (results.exitCode !== 0) {

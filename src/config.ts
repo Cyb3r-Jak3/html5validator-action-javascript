@@ -7,7 +7,7 @@ export interface Config {
   format: string
   log_level: string
   css: boolean
-  blacklisted: string[]
+  blacklist: string[]
 }
 
 export async function generateConfig(): Promise<Config> {
@@ -16,7 +16,7 @@ export async function generateConfig(): Promise<Config> {
     formatOption !== '' &&
     !['json', 'xml', 'gnu', 'text'].includes(formatOption)
   ) {
-    core.warning(`Unformat format output: ${formatOption}`)
+    core.warning(`Unsupported format output: ${formatOption}`)
   }
   return {
     root: core.getInput('root'),
@@ -25,6 +25,6 @@ export async function generateConfig(): Promise<Config> {
     format: formatOption,
     log_level: core.getInput('log_level'),
     css: core.getBooleanInput('css'),
-    blacklisted: core.getMultilineInput('blacklist')
+    blacklist: core.getMultilineInput('blacklist')
   }
 }
