@@ -8,7 +8,7 @@ describe('Main', () => {
     assertWriteCalls([`::error::Need either root or config set${os.EOL}`])
   })
   it('custom validator version', async () => {
-    jest.setTimeout(10000000)
+    // jest.setTimeout(10000000);
     generateNewConfig()
     setInput('validator_version', '0.4.0')
     await run()
@@ -16,7 +16,7 @@ describe('Main', () => {
 })
 
 function generateNewConfig(): void {
-  setInput('root', '~/tests/valid/')
+  setInput('root', 'tests/valid/')
   setInput('log_level', 'DEBUG')
   setInput('format', 'json')
   setInput('css', 'true')
