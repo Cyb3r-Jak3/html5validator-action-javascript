@@ -9,14 +9,14 @@ describe('Main', () => {
   });
 
   it('custom validator version', async () => {
-    // jest.setTimeout(10000000);
+    jest.setTimeout(10000000);
     generateNewConfig()
     setInput('validator_version', '0.4.0')
     await run()
   });
 
   it('invalid files', async () => {
-    // jest.setTimeout(10000000);
+    jest.setTimeout(10000000);
     setInput('root', 'tests/invalid/')
     setInput('log_level', 'DEBUG')
     await run()

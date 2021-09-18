@@ -2,7 +2,9 @@
 ARG NODE_VERSION
 
 FROM nikolaik/python-nodejs:python3.8-nodejs${NODE_VERSION}-alpine AS base
-RUN apk add --no-cache git
+RUN apk add --no-cache git openjdk8-jre \
+    && rm -rf /var/cache/apk/*
+
 WORKDIR /src
 
 FROM base AS deps
