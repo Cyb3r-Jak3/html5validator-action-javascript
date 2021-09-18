@@ -17,20 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v2
+      -
+        name: Test
+        uses: docker/bake-action@v1
         with:
-          node-version: '12'
-          cache: 'yarn'
-
-      - name: Install Packages
-        run: yarn install
-
-      - name: Lint
-        run: yarn run lint
-
-      - name: Check format
-        run: yarn run format-check
-
-      - name: Run tests
-        run: yarn run test
+          targets: test
