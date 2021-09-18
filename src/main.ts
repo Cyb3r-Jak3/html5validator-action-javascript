@@ -12,6 +12,16 @@ export async function run(): Promise<void> {
     html5validator_version = `==${html5validator_version}`
   }
   core.startGroup('Installing HTML5Validator')
+  await exec.exec(
+    'pip3',
+     [
+      '--disable-pip-version-check',
+      '--no-cache-dir',
+      '--install',
+      '--upgrade',
+      'wheel'
+    ]
+  )
   const install = await exec.getExecOutput(
     'pip3',
     [
