@@ -16,7 +16,7 @@ export async function generateConfig(): Promise<Config> {
     formatOption !== '' &&
     !['json', 'xml', 'gnu', 'text'].includes(formatOption)
   ) {
-    core.warning(`Unsupported format output: ${formatOption}`)
+    core.error(`Unsupported format output: ${formatOption}`)
   }
   return {
     root: core.getInput('root'),

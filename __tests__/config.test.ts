@@ -17,7 +17,7 @@ describe('Config', () => {
     process.stdout.write = jest.fn()
     setInput('format', 'bad')
     await config.generateConfig()
-    assertWriteCalls([`::warning::Unsupported format output: bad${os.EOL}`])
+    assertWriteCalls([`::error::Unsupported format output: bad${os.EOL}`])
   })
   it('blacklist', async () => {
     setInput('blacklist', 'index\nindex2')
