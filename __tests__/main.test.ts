@@ -15,15 +15,22 @@ describe('Main', () => {
     await run()
   })
 
+  it('invalid validator version', async () => {
+    generateNewConfig()
+    setInput('validator_version', '0.0.0')
+    await run()
+  })
+
+
   it('invalid files', async () => {
-    setInput('root', 'tests/invalid/')
+    setInput('root', 'testData/invalid/')
     setInput('log_level', 'DEBUG')
     await run()
   })
 })
 
 function generateNewConfig(): void {
-  setInput('root', 'tests/valid/')
+  setInput('root', 'testData/valid/')
   setInput('log_level', 'DEBUG')
   setInput('format', 'json')
   setInput('css', 'true')

@@ -7,25 +7,36 @@ export async function run(): Promise<void> {
     core.setFailed('Need either root or config set')
     return
   }
+
+  const wheelInstall = await exec.getExecOutput(
+    'pip3',
+    [
+      '--disable-pip-version-check',
+      '--no-cache-dir',
+      '--install',
+      'wheel'
+    ],
+    {ignoreReturnCode: true}
+  )
+  console.log(`Wheel output: ${wheelInstall.stdout}, ${wheelInstall.stderr}`)
+  if (wheelInstall.exitCode !== 0) {
+    core.setFailed(
+      `Error installing wheel: ${wheelInstall.stdout}, ${wheelInstall.stderr}`
+    )
+  }
+
   let html5validator_version = core.getInput('validator_version')
   if (html5validator_version !== '') {
     html5validator_version = `==${html5validator_version}`
   }
   core.startGroup('Installing HTML5Validator')
-  await exec.exec('pip3', [
-    '--disable-pip-version-check',
-    '--no-cache-dir',
-    '--install',
-    '--upgrade',
-    'wheel'
-  ])
+
   const install = await exec.getExecOutput(
     'pip3',
     [
       'install',
       '--disable-pip-version-check',
       '--no-cache-dir',
-      '--upgrade',
       `html5validator${html5validator_version}`
     ],
     {ignoreReturnCode: true}

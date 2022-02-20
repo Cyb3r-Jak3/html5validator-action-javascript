@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.2
 ARG NODE_VERSION
 
-FROM nikolaik/python-nodejs:python3.8-nodejs${NODE_VERSION}-alpine AS base
+FROM nikolaik/python-nodejs:python3.9-nodejs${NODE_VERSION}-alpine AS base
 RUN apk add --no-cache git openjdk8-jre py-pip \
     && rm -rf /var/cache/apk/*
 
