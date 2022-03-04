@@ -37,12 +37,12 @@ jobs:
         run: yarn test
 
       - name: Compare the expected and actual dist/ directories
-              run: |
-                if [ "$(git diff --ignore-space-at-eol dist/ | wc -l)" -gt "0" ]; then
-                  echo "::error:: Detected uncommitted changes after build.  See status below:"
-                  git diff
-                  exit 1
-                fi
+        run: |
+          if [ "$(git diff --ignore-space-at-eol dist/ | wc -l)" -gt "0" ]; then
+            echo "::error:: Detected uncommitted changes after build.  See status below:"
+            git diff
+            exit 1
+          fi
       # - name: Test with Buildx
       #   uses: docker/bake-action@v1.7.0
       #   with:
