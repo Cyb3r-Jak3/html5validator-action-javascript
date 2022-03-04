@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
+import * as util from "util"
 import {Config, generateConfig} from './config'
 
 export async function run(): Promise<void> {
@@ -26,18 +27,22 @@ export async function run(): Promise<void> {
   }
 
   let html5validator_version = core.getInput('validator_version')
+  let install_string
   if (html5validator_version !== '') {
-    html5validator_version = `==${html5validator_version}`
+    install_string = util.format("html5validator==%s", html5validator_version)
+  } else {
+    install_string = 'html5validator'
   }
-  core.startGroup('Installing HTML5Validator')
+  core.startGroup(`'Installing HTML5Validator: ${install_string}`)
 
+  
   const install = await exec.getExecOutput(
     'pip3',
     [
       'install',
       '--disable-pip-version-check',
       '--no-cache-dir',
-      `html5validator${html5validator_version}`
+      install_string
     ],
     {ignoreReturnCode: true}
   )
