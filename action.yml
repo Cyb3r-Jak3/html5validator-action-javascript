@@ -34,5 +34,5 @@ outputs:
   result:
     description: 'The exit code'
 runs:
-  using: 'node12'
+  using: 'node14'
   main: 'dist/index.js'

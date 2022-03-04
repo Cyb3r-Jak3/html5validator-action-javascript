@@ -18,7 +18,24 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Test with Buildx
-        uses: docker/bake-action@v1.7.0
+      - name: Setup NPM
+        uses: actions/setup-node@v2
         with:
-          targets: test
+          node-version: '14'
+          cache: 'npm'
+
+    - name: Install NPM packages
+      run: npm install
+
+    - name: Format Check
+      run: npm run format-check
+
+    - name: Link
+      run: npm run lint
+
+    - name: Test
+      run: npm test
+      # - name: Test with Buildx
+      #   uses: docker/bake-action@v1.7.0
+      #   with:
+      #     targets: test
