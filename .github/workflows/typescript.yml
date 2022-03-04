@@ -24,17 +24,17 @@ jobs:
           node-version: '14'
           cache: 'npm'
 
-    - name: Install NPM packages
-      run: npm install
+      - name: Install NPM packages
+        run: npm install
 
-    - name: Format Check
-      run: npm run format-check
+      - name: Format Check
+        run: npm run format-check
 
-    - name: Link
-      run: npm run lint
+      - name: Link
+        run: npm run lint
 
-    - name: Test
-      run: npm test
+      - name: Test
+        run: npm test
       # - name: Test with Buildx
       #   uses: docker/bake-action@v1.7.0
       #   with:
