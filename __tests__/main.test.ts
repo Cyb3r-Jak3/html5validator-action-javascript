@@ -17,7 +17,7 @@ describe('Main', () => {
 
   it('invalid validator version', async () => {
     generateNewConfig()
-    setInput('validator_version', '0.0.0')
+    setInput('validator_version', '-1')
     await run()
   })
 
