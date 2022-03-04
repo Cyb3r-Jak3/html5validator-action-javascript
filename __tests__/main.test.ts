@@ -21,7 +21,6 @@ describe('Main', () => {
     await run()
   })
 
-
   it('invalid files', async () => {
     setInput('root', 'testData/invalid/')
     setInput('log_level', 'DEBUG')
